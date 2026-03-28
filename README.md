@@ -42,7 +42,6 @@ By default, the application is configured to point to a local Spring Boot server
 *   **Physical Device:** `http://<your-PC-local-IP>:8080/`
 *   **Production:** `https://your-api-url.com/`
 
-*(Configure this in `app/src/main/java/com/dentalgo/app/data/api/RetrofitClient.kt`)*
 
 ### Endpoints
 
