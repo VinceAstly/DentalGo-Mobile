@@ -11,28 +11,24 @@ DentalGo is a comprehensive Android application for seamless dental care managem
 To view the UI of the application, please refer to the following screenshots:
 
 ### Register
-<!-- TODO: Add your Register screenshot here -->
-![Register](screenshots/register.png)
+<img width="412" height="890" alt="Screenshot 2026-03-28 102245" src="https://github.com/user-attachments/assets/d92dd38e-7ce3-41c9-aeb0-0dc594276aca" />
+
 
 ### Login
-<!-- TODO: Add your Login screenshot here -->
-![Login](screenshots/login.png)
+<img width="404" height="868" alt="Screenshot 2026-03-28 102315" src="https://github.com/user-attachments/assets/568c9f15-e330-41e8-94f8-a0e7319d4005" />
+
 
 ### Dashboard
-<!-- TODO: Add your Dashboard screenshot here -->
-![Dashboard](screenshots/dashboard.png)
+
 
 ### Profile
-<!-- TODO: Add your Profile screenshot here -->
-![Profile](screenshots/profile.png)
+
 
 ### Update Profile
-<!-- TODO: Add your Update Profile screenshot here -->
-![Update Profile](screenshots/update_profile.png)
+
 
 ### Change Password
-<!-- TODO: Add your Change Password screenshot here -->
-![Change Password](screenshots/change_password.png)
+
 
 ---
 
