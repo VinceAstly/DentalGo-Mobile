@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.dentalgo.app.data.SessionManager
-import com.dentalgo.app.ui.navigation.DentalGoNavGraph
+import com.dentalgo.app.core.data.SessionManager
+import com.dentalgo.app.core.ui.navigation.DentalGoNavGraph
 import com.dentalgo.app.ui.theme.DentalGoTheme
 
 class MainActivity : ComponentActivity() {
