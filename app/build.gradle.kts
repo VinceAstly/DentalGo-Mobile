@@ -19,12 +19,32 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Physical device on the same Wi-Fi — change this if your IP changes
+            buildConfigField("String", "BASE_URL", "\"http://172.31.9.160:8080/\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // For production, replace with your real server URL
+            buildConfigField("String", "BASE_URL", "\"http://172.31.9.160:8080/\"")
+        }
+    }
+
+    // Separate flavor for running on the Android Emulator
+    flavorDimensions += "environment"
+    productFlavors {
+        create("emulator") {
+            dimension = "environment"
+            // 10.0.2.2 is the emulator's alias for the host machine's localhost
+            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8080/\"")
+        }
+        create("device") {
+            dimension = "environment"
+            // Inherits BASE_URL from the buildType above
         }
     }
     compileOptions {
@@ -36,6 +56,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

@@ -119,7 +119,6 @@ fun ProfileScreen(
                         Spacer(Modifier.width(10.dp))
                         Text("Profile", fontWeight = FontWeight.Bold, fontSize = 22.sp, color = DentalGoOnSurface)
                     }
-                    // Logout
                     IconButton(onClick = onLogout) {
                         Icon(Icons.Filled.Logout, contentDescription = "Logout", tint = DentalGoError)
                     }
@@ -210,7 +209,7 @@ fun ProfileScreen(
 
                 // Appointments preview section
                 if (user != null) {
-                    AppointmentsSummarySection(emptyList()) // Provide empty or load from global state
+                    AppointmentsSummarySection(emptyList())
                 }
 
                 Spacer(Modifier.height(24.dp))
@@ -248,7 +247,7 @@ private fun RowScope.AppointmentColumn(title: String, items: List<AppointmentDat
             } else {
                 items.take(3).forEach { appt ->
                     Text(
-                        text = appt.service,
+                        text = appt.serviceType ?: "—",
                         fontSize = 12.sp,
                         color = DentalGoTextSecondary,
                         modifier = Modifier.padding(bottom = 4.dp)

@@ -85,7 +85,6 @@ fun DashboardScreen(
                 .background(DentalGoBackground)
                 .padding(innerPadding)
         ) {
-            /* ── Top Bar ── */
             item {
                 Row(
                     modifier = Modifier
@@ -109,7 +108,6 @@ fun DashboardScreen(
                             color = DentalGoOnSurface
                         )
                     }
-                    // Avatar button
                     Box(
                         modifier = Modifier
                             .size(42.dp)
@@ -129,7 +127,6 @@ fun DashboardScreen(
                 }
             }
 
-            /* ── Hero Banner ── */
             item {
                 Box(
                     modifier = Modifier
@@ -172,7 +169,6 @@ fun DashboardScreen(
                 }
             }
 
-            /* ── State-aware content ── */
             if (isLoading) {
                 item {
                     Box(
@@ -205,7 +201,6 @@ fun DashboardScreen(
                 }
             }
 
-            /* ── Services Header ── */
             item {
                 Text(
                     text = "Services",
@@ -216,7 +211,6 @@ fun DashboardScreen(
                 )
             }
 
-            /* ── Services Grid ── */
             item {
                 Column(modifier = Modifier.padding(horizontal = 16.dp)) {
                     dentalServices.chunked(2).forEach { row ->

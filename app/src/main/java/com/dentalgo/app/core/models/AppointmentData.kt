@@ -1,10 +1,11 @@
 package com.dentalgo.app.core.models
 
 data class AppointmentData(
-    val id: Int,
-    val service: String,
-    val date: String,
-    val time: String,
-    val status: String,
-    val dentist: String?
+    val id: String?,
+    val patientEmail: String?,
+    val serviceType: String?,
+    val appointmentDate: String?,
+    val status: String?,
+    val createdAt: String?
 )
+

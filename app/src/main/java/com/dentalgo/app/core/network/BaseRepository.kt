@@ -29,6 +29,12 @@ abstract class BaseRepository {
 
     private fun parseErrorMessage(errorBody: String?, code: Int): String {
         if (errorBody == null) return httpCodeMessage(code)
+
+        val trimmed = errorBody.trim().removeSurrounding("\"")
+        if (trimmed.isNotBlank() && !trimmed.startsWith("{") && !trimmed.startsWith("[")) {
+            return trimmed
+        }
+
         return try {
             val apiError = Gson().fromJson(errorBody, ApiError::class.java)
             when {

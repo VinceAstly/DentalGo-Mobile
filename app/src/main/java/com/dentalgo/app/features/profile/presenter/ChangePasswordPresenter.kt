@@ -33,10 +33,10 @@ class ChangePasswordPresenter(
             else -> {
                 view?.showLoading()
                 scope.launch {
-                    val request = ChangePasswordRequest(currentPass, newPass, confirmPass)
+                    val request = ChangePasswordRequest(password = newPass)
                     when (val result = repository.changePassword(token, request)) {
-                        is ApiResult.Success -> view?.onChangePasswordSuccess(result.data.message)
-                        is ApiResult.Error -> view?.showError(result.message)
+                        is ApiResult.Success      -> view?.onChangePasswordSuccess(result.data ?: "Password changed successfully!")
+                        is ApiResult.Error        -> view?.showError(result.message)
                         is ApiResult.NetworkError -> view?.onNetworkError()
                     }
                     view?.hideLoading()
@@ -45,3 +45,4 @@ class ChangePasswordPresenter(
         }
     }
 }
+

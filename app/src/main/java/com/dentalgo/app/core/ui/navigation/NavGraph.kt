@@ -37,16 +37,13 @@ fun DentalGoNavGraph(
     navController: NavHostController,
     sessionManager: SessionManager
 ) {
-    // Top-level coroutine scope for presenters
     val coroutineScope = rememberCoroutineScope()
 
-    // 1. Repositories
     val authRepo = remember { AuthRepository(RetrofitClient.createService(AuthApi::class.java)) }
     val dashboardRepo = remember { DashboardRepository(RetrofitClient.createService(DashboardApi::class.java)) }
     val profileRepo = remember { ProfileRepository(RetrofitClient.createService(ProfileApi::class.java)) }
 
-    // Start Destination
-    val startDest = Routes.DASHBOARD
+    val startDest = if (sessionManager.isLoggedIn()) Routes.DASHBOARD else Routes.LOGIN
 
     NavHost(navController = navController, startDestination = startDest) {
 
@@ -54,8 +51,8 @@ fun DentalGoNavGraph(
         composable(Routes.LOGIN) {
             LoginScreen(
                 presenterProvider = { LoginPresenter(authRepo, coroutineScope) },
-                onLoginSuccess = { token ->
-                    sessionManager.saveToken(token)
+                onLoginSuccess = { email ->
+                    sessionManager.saveToken(email)
                     navController.navigate(Routes.DASHBOARD) {
                         popUpTo(Routes.LOGIN) { inclusive = true }
                     }
@@ -66,12 +63,11 @@ fun DentalGoNavGraph(
             )
         }
 
-        /* ── Register ── */
         composable(Routes.REGISTER) {
             RegisterScreen(
                 presenterProvider = { RegisterPresenter(authRepo, coroutineScope) },
-                onRegisterSuccess = { token ->
-                    sessionManager.saveToken(token)
+                onRegisterSuccess = { email ->
+                    sessionManager.saveToken(email)
                     navController.navigate(Routes.DASHBOARD) {
                         popUpTo(Routes.LOGIN) { inclusive = true }
                     }
@@ -82,7 +78,6 @@ fun DentalGoNavGraph(
             )
         }
 
-        /* ── Dashboard ── */
         composable(Routes.DASHBOARD) {
             val token    = sessionManager.getToken() ?: ""
             val userName = sessionManager.getUserName()
@@ -96,7 +91,6 @@ fun DentalGoNavGraph(
             )
         }
 
-        /* ── Profile ── */
         composable(Routes.PROFILE) {
             val token = sessionManager.getToken() ?: ""
             ProfileScreen(
@@ -117,7 +111,6 @@ fun DentalGoNavGraph(
             )
         }
 
-        /* ── Change Password ── */
         composable(Routes.CHANGE_PASSWORD) {
             val token = sessionManager.getToken() ?: ""
             ChangePasswordScreen(

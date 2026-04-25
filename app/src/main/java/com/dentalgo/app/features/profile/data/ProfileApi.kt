@@ -3,24 +3,26 @@ package com.dentalgo.app.features.profile.data
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.PUT
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ProfileApi {
-    @GET("api/profile")
+    @GET("api/users/profile")
     suspend fun getProfile(
-        @Header("Authorization") token: String
+        @Query("email") email: String
     ): Response<ProfileResponse>
 
-    @PUT("api/profile")
+    @PUT("api/users/profile/edit/{email}")
     suspend fun updateProfile(
-        @Header("Authorization") token: String,
+        @Path("email") email: String,
         @Body request: UpdateProfileRequest
-    ): Response<UpdateProfileResponse>
+    ): Response<String>
 
-    @PUT("api/change-password")
+    @PUT("api/users/change-password/{email}")
     suspend fun changePassword(
-        @Header("Authorization") token: String,
+        @Path("email") email: String,
         @Body request: ChangePasswordRequest
-    ): Response<ChangePasswordResponse>
+    ): Response<String>
 }
+

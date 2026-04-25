@@ -36,22 +36,21 @@ class RegisterPresenter(
                 view?.showLoading()
                 scope.launch {
                     val request = RegisterRequest(
-                        name = name.trim(),
-                        email = email.trim(),
+                        fullName = name.trim(),
+                        email    = email.trim(),
                         password = password,
-                        password_confirmation = confirmPassword,
-                        phone = phone.trim()
+                        phone    = phone.trim()
                     )
                     when (val result = repository.register(request)) {
                         is ApiResult.Success -> {
-                            val token = result.data.token
-                            if (token != null) {
-                                view?.onRegisterSuccess(token)
+                            val registeredEmail = result.data.email
+                            if (registeredEmail != null) {
+                                view?.onRegisterSuccess(registeredEmail)
                             } else {
-                                view?.showError(result.data.message.ifBlank { "Registration failed." })
+                                view?.showError("Registration failed. Please try again.")
                             }
                         }
-                        is ApiResult.Error -> view?.showError(result.message)
+                        is ApiResult.Error        -> view?.showError(result.message)
                         is ApiResult.NetworkError -> view?.onNetworkError()
                     }
                     view?.hideLoading()

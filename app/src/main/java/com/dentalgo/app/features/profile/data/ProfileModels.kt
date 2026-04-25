@@ -3,31 +3,24 @@ package com.dentalgo.app.features.profile.data
 import com.dentalgo.app.core.models.UserData
 
 data class ProfileResponse(
-    val success: Boolean,
-    val message: String,
-    val user: UserData?
+    val id: String?,   // MongoDB ObjectId
+    val fullName: String?,
+    val email: String?,
+    val phone: String?,
+    val bio: String?,
+    val profileImage: String?
 )
 
 data class UpdateProfileRequest(
-    val name: String,
-    val email: String,
+    val fullName: String,
     val phone: String,
     val bio: String
 )
 
-data class UpdateProfileResponse(
-    val success: Boolean,
-    val message: String,
-    val user: UserData?
-)
-
 data class ChangePasswordRequest(
-    val current_password: String,
-    val new_password: String,
-    val new_password_confirmation: String
+    val password: String
 )
 
-data class ChangePasswordResponse(
-    val success: Boolean,
-    val message: String
-)
+data class UpdateProfileResponse(val success: Boolean, val message: String, val user: UserData?)
+data class ChangePasswordResponse(val success: Boolean, val message: String)
+

@@ -1,15 +1,18 @@
 package com.dentalgo.app.features.profile.data
 
+import com.dentalgo.app.core.models.UserData
 import com.dentalgo.app.core.network.ApiResult
 import com.dentalgo.app.core.network.BaseRepository
 
 class ProfileRepository(private val api: ProfileApi) : BaseRepository() {
-    suspend fun getProfile(token: String): ApiResult<ProfileResponse> =
-        safeCall { api.getProfile("Bearer $token") }
 
-    suspend fun updateProfile(token: String, request: UpdateProfileRequest): ApiResult<UpdateProfileResponse> =
-        safeCall { api.updateProfile("Bearer $token", request) }
+    suspend fun getProfile(email: String): ApiResult<ProfileResponse> =
+        safeCall { api.getProfile(email) }
 
-    suspend fun changePassword(token: String, request: ChangePasswordRequest): ApiResult<ChangePasswordResponse> =
-        safeCall { api.changePassword("Bearer $token", request) }
+    suspend fun updateProfile(email: String, request: UpdateProfileRequest): ApiResult<String> =
+        safeCall { api.updateProfile(email, request) }
+
+    suspend fun changePassword(email: String, request: ChangePasswordRequest): ApiResult<String> =
+        safeCall { api.changePassword(email, request) }
 }
+

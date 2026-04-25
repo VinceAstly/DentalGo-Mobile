@@ -1,8 +1,10 @@
 package com.dentalgo.app.core.network
 
+import com.dentalgo.app.BuildConfig
+
 object RetrofitClient {
 
-    private const val BASE_URL = "http://10.0.2.2:8080/"
+    private val BASE_URL = BuildConfig.BASE_URL
 
     private val loggingInterceptor = okhttp3.logging.HttpLoggingInterceptor().apply {
         level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY

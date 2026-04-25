@@ -3,10 +3,6 @@ package com.dentalgo.app.core.data
 import android.content.Context
 import android.content.SharedPreferences
 
-/**
- * Manages user session — stores/retrieves Bearer token and basic user info
- * using SharedPreferences.
- */
 class SessionManager(context: Context) {
 
     private val prefs: SharedPreferences =

@@ -3,17 +3,17 @@ package com.dentalgo.app.features.auth.data
 import com.dentalgo.app.core.models.UserData
 
 data class RegisterRequest(
-    val name: String,
+    val fullName: String,
     val email: String,
     val password: String,
-    val password_confirmation: String,
     val phone: String
 )
 
 data class RegisterResponse(
-    val success: Boolean,
-    val message: String,
-    val token: String?
+    val id: String?,   // MongoDB ObjectId
+    val fullName: String?,
+    val email: String?,
+    val phone: String?
 )
 
 data class LoginRequest(
@@ -22,8 +22,11 @@ data class LoginRequest(
 )
 
 data class LoginResponse(
-    val success: Boolean,
-    val message: String,
-    val token: String?,
-    val user: UserData?
+    val id: String?,   // MongoDB ObjectId
+    val fullName: String?,
+    val email: String?,
+    val phone: String?,
+    val bio: String?,
+    val profileImage: String?
 )
+

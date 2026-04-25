@@ -1,5 +1,6 @@
 package com.dentalgo.app.features.profile.presenter
 
+import com.dentalgo.app.core.models.UserData
 import com.dentalgo.app.core.network.ApiResult
 import com.dentalgo.app.features.profile.contract.ProfileContract
 import com.dentalgo.app.features.profile.data.ProfileRepository
@@ -25,12 +26,21 @@ class ProfilePresenter(
     override fun loadProfile(token: String) {
         view?.showLoading()
         scope.launch {
+            // token is actually the user's email
             when (val result = repository.getProfile(token)) {
                 is ApiResult.Success -> {
-                    result.data.user?.let { view?.displayProfile(it) }
-                        ?: view?.showError("Failed to load profile data.")
+                    val r = result.data
+                    val userData = UserData(
+                        id     = r.id,
+                        name   = r.fullName ?: "",
+                        email  = r.email ?: token,
+                        phone  = r.phone,
+                        bio    = r.bio,
+                        avatar = null
+                    )
+                    view?.displayProfile(userData)
                 }
-                is ApiResult.Error -> view?.showError(result.message)
+                is ApiResult.Error        -> view?.showError(result.message)
                 is ApiResult.NetworkError -> view?.onNetworkError()
             }
             view?.hideLoading()
@@ -38,19 +48,31 @@ class ProfilePresenter(
     }
 
     override fun updateProfile(token: String, name: String, email: String, phone: String, bio: String) {
-        if (name.isBlank() || email.isBlank()) {
-            view?.showError("Name and email cannot be empty.")
+        if (name.isBlank()) {
+            view?.showError("Name cannot be empty.")
             return
         }
         view?.showLoading()
         scope.launch {
-            val request = UpdateProfileRequest(name, email, phone, bio)
+            // Backend path uses email; token IS the email here
+            val request = UpdateProfileRequest(fullName = name, phone = phone, bio = bio)
             when (val result = repository.updateProfile(token, request)) {
-                is ApiResult.Success -> view?.onUpdateSuccess(result.data.message, result.data.user)
-                is ApiResult.Error -> view?.showError(result.message)
+                is ApiResult.Success -> {
+                    val updated = UserData(
+                        id     = null,
+                        name   = name,
+                        email  = token,
+                        phone  = phone,
+                        bio    = bio,
+                        avatar = null
+                    )
+                    view?.onUpdateSuccess(result.data ?: "Profile updated successfully!", updated)
+                }
+                is ApiResult.Error        -> view?.showError(result.message)
                 is ApiResult.NetworkError -> view?.onNetworkError()
             }
             view?.hideLoading()
         }
     }
 }
+

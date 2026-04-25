@@ -32,17 +32,18 @@ class LoginPresenter(
         scope.launch {
             when (val result = repository.login(LoginRequest(email.trim(), password))) {
                 is ApiResult.Success -> {
-                    val token = result.data.token
-                    if (token != null) {
-                        view?.onLoginSuccess(token)
+                    val user = result.data
+                    if (user.email != null) {
+                        view?.onLoginSuccess(user.email)
                     } else {
-                        view?.showError(result.data.message.ifBlank { "Login failed." })
+                        view?.showError("Login failed. Please try again.")
                     }
                 }
-                is ApiResult.Error -> view?.showError(result.message)
+                is ApiResult.Error   -> view?.showError(result.message)
                 is ApiResult.NetworkError -> view?.onNetworkError()
             }
             view?.hideLoading()
         }
     }
 }
+
