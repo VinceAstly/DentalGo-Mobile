@@ -45,10 +45,11 @@ fun ProfileScreen(
     var phoneField by remember { mutableStateOf("") }
     var bioField   by remember { mutableStateOf("") }
 
-    var successMsg by remember { mutableStateOf("") }
-    var errorMsg   by remember { mutableStateOf("") }
-    var isLoading  by remember { mutableStateOf(false) }
-    var user       by remember { mutableStateOf<UserData?>(null) }
+    var successMsg   by remember { mutableStateOf("") }
+    var errorMsg     by remember { mutableStateOf("") }
+    var isLoading    by remember { mutableStateOf(false) }
+    var user         by remember { mutableStateOf<UserData?>(null) }
+    var appointments by remember { mutableStateOf<List<AppointmentData>>(emptyList()) }
 
     val view = remember {
         object : ProfileContract.View {
@@ -72,6 +73,9 @@ fun ProfileScreen(
                     phoneField = it.phone ?: ""
                     bioField = it.bio ?: ""
                 }
+            }
+            override fun displayAppointments(loaded: List<AppointmentData>) {
+                appointments = loaded
             }
         }
     }
@@ -208,8 +212,8 @@ fun ProfileScreen(
                 Spacer(Modifier.height(28.dp))
 
                 // Appointments preview section
-                if (user != null) {
-                    AppointmentsSummarySection(emptyList())
+                if (user != null || appointments.isNotEmpty()) {
+                    AppointmentsSummarySection(appointments)
                 }
 
                 Spacer(Modifier.height(24.dp))
