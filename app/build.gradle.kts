@@ -21,7 +21,7 @@ android {
     buildTypes {
         debug {
             // Physical device on the same Wi-Fi — change this if your IP changes
-            buildConfigField("String", "BASE_URL", "\"http://172.31.9.160:8080/\"")
+            buildConfigField("String", "BASE_URL", "\"https://dentalgo-backend.onrender.com/\"")
         }
         release {
             isMinifyEnabled = false
@@ -30,7 +30,7 @@ android {
                 "proguard-rules.pro"
             )
             // For production, replace with your real server URL
-            buildConfigField("String", "BASE_URL", "\"http://172.31.9.160:8080/\"")
+            buildConfigField("String", "BASE_URL", "\"https://dentalgo-backend.onrender.com/\"")
         }
     }
 

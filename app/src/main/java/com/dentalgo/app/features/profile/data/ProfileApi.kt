@@ -1,5 +1,6 @@
 package com.dentalgo.app.features.profile.data
 
+import com.dentalgo.app.core.models.AppointmentData
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -24,5 +25,10 @@ interface ProfileApi {
         @Path("email") email: String,
         @Body request: ChangePasswordRequest
     ): Response<String>
+
+    @GET("api/appointments")
+    suspend fun getAppointments(
+        @Query("email") email: String
+    ): Response<List<AppointmentData>>
 }
 

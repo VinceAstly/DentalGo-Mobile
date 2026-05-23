@@ -1,5 +1,6 @@
 package com.dentalgo.app.features.profile.data
 
+import com.dentalgo.app.core.models.AppointmentData
 import com.dentalgo.app.core.models.UserData
 import com.dentalgo.app.core.network.ApiResult
 import com.dentalgo.app.core.network.BaseRepository
@@ -14,5 +15,8 @@ class ProfileRepository(private val api: ProfileApi) : BaseRepository() {
 
     suspend fun changePassword(email: String, request: ChangePasswordRequest): ApiResult<String> =
         safeCall { api.changePassword(email, request) }
+
+    suspend fun getAppointments(email: String): ApiResult<List<AppointmentData>> =
+        safeCall { api.getAppointments(email) }
 }
 

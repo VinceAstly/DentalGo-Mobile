@@ -45,10 +45,11 @@ fun ProfileScreen(
     var phoneField by remember { mutableStateOf("") }
     var bioField   by remember { mutableStateOf("") }
 
-    var successMsg by remember { mutableStateOf("") }
-    var errorMsg   by remember { mutableStateOf("") }
-    var isLoading  by remember { mutableStateOf(false) }
-    var user       by remember { mutableStateOf<UserData?>(null) }
+    var successMsg   by remember { mutableStateOf("") }
+    var errorMsg     by remember { mutableStateOf("") }
+    var isLoading    by remember { mutableStateOf(false) }
+    var user         by remember { mutableStateOf<UserData?>(null) }
+    var appointments by remember { mutableStateOf<List<AppointmentData>>(emptyList()) }
 
     val view = remember {
         object : ProfileContract.View {
@@ -72,6 +73,9 @@ fun ProfileScreen(
                     phoneField = it.phone ?: ""
                     bioField = it.bio ?: ""
                 }
+            }
+            override fun displayAppointments(loaded: List<AppointmentData>) {
+                appointments = loaded
             }
         }
     }
@@ -108,7 +112,6 @@ fun ProfileScreen(
             ) {
                 Spacer(Modifier.height(20.dp))
 
-                // Page title
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -126,7 +129,6 @@ fun ProfileScreen(
 
                 Spacer(Modifier.height(20.dp))
 
-                // Avatar
                 Box(
                     modifier = Modifier
                         .size(90.dp)
@@ -147,11 +149,9 @@ fun ProfileScreen(
 
                 Spacer(Modifier.height(24.dp))
 
-                // Banners
                 if (errorMsg.isNotBlank())   { ErrorBanner(errorMsg); Spacer(Modifier.height(12.dp)) }
                 if (successMsg.isNotBlank()) { SuccessBanner(successMsg); Spacer(Modifier.height(12.dp)) }
 
-                // Form
                 DentalGoTextField(
                     value = nameField, onValueChange = { nameField = it; errorMsg = ""; successMsg = "" },
                     label = "Full Name", placeholder = "Enter your full name",
@@ -180,7 +180,6 @@ fun ProfileScreen(
                     enabled = !isLoading
                 )
 
-                // Change Password link
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                     Text(
                         text = "Change Password?",
@@ -195,7 +194,6 @@ fun ProfileScreen(
 
                 Spacer(Modifier.height(20.dp))
 
-                // Update Button
                 DentalGoPrimaryButton(
                     text = "Update Changes",
                     onClick = {
@@ -207,9 +205,8 @@ fun ProfileScreen(
 
                 Spacer(Modifier.height(28.dp))
 
-                // Appointments preview section
-                if (user != null) {
-                    AppointmentsSummarySection(emptyList())
+                if (user != null || appointments.isNotEmpty()) {
+                    AppointmentsSummarySection(appointments)
                 }
 
                 Spacer(Modifier.height(24.dp))

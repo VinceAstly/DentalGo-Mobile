@@ -157,14 +157,13 @@ fun DashboardScreen(
                         )
                         Spacer(Modifier.height(12.dp))
 
-                        val displayName = user?.name ?: initialUserName
                         Text(
-                            text = displayName,
+                            text = "Vince Astly N. Cabungcag",
                             color = Color.White,
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 13.sp
                         )
-                        Text("DentalGo Member", color = Color.White.copy(alpha = 0.7f), fontSize = 11.sp)
+                        Text("Web Developer", color = Color.White.copy(alpha = 0.7f), fontSize = 11.sp)
                     }
                 }
             }
@@ -231,7 +230,64 @@ fun DashboardScreen(
                 }
             }
 
+            item {
+                Text(
+                    text = "My Appointments",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 18.sp,
+                    color = DentalGoOnSurface,
+                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp)
+                )
+                Box(modifier = Modifier.padding(horizontal = 16.dp)) {
+                    AppointmentsSummarySection(appointments)
+                }
+            }
+
             item { Spacer(Modifier.height(20.dp)) }
+        }
+    }
+}
+
+@Composable
+private fun AppointmentsSummarySection(appointments: List<AppointmentData>) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        AppointmentColumn(
+            title = "Upcoming",
+            items = appointments.filter { it.status?.lowercase() in listOf("pending", "confirmed") }
+        )
+        AppointmentColumn(
+            title = "History",
+            items = appointments.filter { it.status?.lowercase() in listOf("completed", "cancelled") }
+        )
+    }
+}
+
+@Composable
+private fun RowScope.AppointmentColumn(title: String, items: List<AppointmentData>) {
+    Card(
+        modifier = Modifier.weight(1f),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = DentalGoSurface),
+        elevation = CardDefaults.cardElevation(2.dp)
+    ) {
+        Column(modifier = Modifier.padding(12.dp)) {
+            Text(title, fontWeight = FontWeight.SemiBold, fontSize = 12.sp, color = DentalGoOnSurface)
+            Spacer(Modifier.height(8.dp))
+            if (items.isEmpty()) {
+                Text("None", fontSize = 12.sp, color = DentalGoTextMuted)
+            } else {
+                items.take(3).forEach { appt ->
+                    Text(
+                        text = appt.serviceType ?: "—",
+                        fontSize = 12.sp,
+                        color = DentalGoTextSecondary,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+                }
+            }
         }
     }
 }

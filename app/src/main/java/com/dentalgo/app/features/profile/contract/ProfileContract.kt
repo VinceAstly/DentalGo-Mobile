@@ -1,5 +1,6 @@
 package com.dentalgo.app.features.profile.contract
 
+import com.dentalgo.app.core.models.AppointmentData
 import com.dentalgo.app.core.models.UserData
 
 interface ProfileContract {
@@ -10,6 +11,7 @@ interface ProfileContract {
         fun onNetworkError()
         fun displayProfile(user: UserData)
         fun onUpdateSuccess(message: String, user: UserData?)
+        fun displayAppointments(appointments: List<AppointmentData>)
     }
 
     interface Presenter {

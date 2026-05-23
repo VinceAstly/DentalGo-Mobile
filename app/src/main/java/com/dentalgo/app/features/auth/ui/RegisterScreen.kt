@@ -62,17 +62,15 @@ fun RegisterScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 28.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(horizontal = 28.dp, vertical = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Spacer(Modifier.height(36.dp))
 
-            // Logo
             DentalGoLogo(modifier = Modifier.align(Alignment.Start), fontSize = 22)
 
             Spacer(Modifier.height(32.dp))
 
-            // Title
             Text(
                 text = "Register",
                 fontSize = 26.sp,
@@ -89,13 +87,11 @@ fun RegisterScreen(
 
             Spacer(Modifier.height(28.dp))
 
-            // Error Banner
             if (errorMsg.isNotBlank()) {
                 ErrorBanner(message = errorMsg)
                 Spacer(Modifier.height(16.dp))
             }
 
-            // Full Name
             DentalGoTextField(
                 value = fullName,
                 onValueChange = { fullName = it; errorMsg = "" },
@@ -106,7 +102,6 @@ fun RegisterScreen(
             )
             Spacer(Modifier.height(14.dp))
 
-            // Password
             DentalGoPasswordField(
                 value = password,
                 onValueChange = { password = it; errorMsg = "" },
@@ -117,7 +112,6 @@ fun RegisterScreen(
             )
             Spacer(Modifier.height(14.dp))
 
-            // Confirm Password
             DentalGoPasswordField(
                 value = confirmPassword,
                 onValueChange = { confirmPassword = it; errorMsg = "" },
@@ -128,7 +122,6 @@ fun RegisterScreen(
             )
             Spacer(Modifier.height(14.dp))
 
-            // Email
             DentalGoTextField(
                 value = email,
                 onValueChange = { email = it; errorMsg = "" },
@@ -140,7 +133,6 @@ fun RegisterScreen(
             )
             Spacer(Modifier.height(14.dp))
 
-            // Phone Number
             DentalGoTextField(
                 value = phone,
                 onValueChange = { phone = it; errorMsg = "" },
@@ -156,7 +148,6 @@ fun RegisterScreen(
 
             Spacer(Modifier.height(28.dp))
 
-            // Sign Up Button
             DentalGoPrimaryButton(
                 text = "Sign up",
                 onClick = { presenter.register(fullName, email, password, confirmPassword, phone) },
@@ -166,7 +157,6 @@ fun RegisterScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // Back
             Text(
                 text = "Back",
                 fontSize = 14.sp,
@@ -179,7 +169,6 @@ fun RegisterScreen(
                 }
             )
 
-            Spacer(Modifier.height(32.dp))
         }
 
         if (isLoading) LoadingOverlay()
