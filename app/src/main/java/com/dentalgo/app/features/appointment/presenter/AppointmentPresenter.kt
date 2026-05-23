@@ -21,7 +21,6 @@ class AppointmentPresenter(
     override fun attachView(view: AppointmentContract.View) { this.view = view }
     override fun detachView() { this.view = null }
 
-    /* ── Load existing appointments ── */
     override fun loadUserAppointments(token: String) {
         scope.launch {
             when (val result = repository.getUserAppointments(token)) {
@@ -37,7 +36,6 @@ class AppointmentPresenter(
         }
     }
 
-    /* ── Step 1: Validate + duplicate check, then navigate to summary ── */
     override fun validateAndNavigate(token: String, service: String, date: String, notes: String) {
         if (service.isBlank()) { view?.showError("Please select a service."); return }
         if (date.isBlank())    { view?.showError("Please choose a date.");    return }
@@ -66,11 +64,9 @@ class AppointmentPresenter(
             return
         }
 
-        // All clear — proceed to summary screen
         view?.onProceedToSummary(service, date, notes)
     }
 
-    /* ── Step 2: Actually POST the booking (called from summary screen) ── */
     override fun confirmBooking(token: String, service: String, date: String, notes: String) {
         view?.showLoading()
         scope.launch {
@@ -88,6 +84,7 @@ class AppointmentPresenter(
                         email       = result.data.email,
                         serviceType = result.data.serviceType,
                         date        = result.data.date,
+                        time        = result.data.time,
                         notes       = result.data.notes,
                         status      = result.data.status ?: "pending"
                     )

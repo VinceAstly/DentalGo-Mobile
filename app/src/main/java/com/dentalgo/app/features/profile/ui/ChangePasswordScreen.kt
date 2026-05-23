@@ -67,7 +67,6 @@ fun ChangePasswordScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            // Top bar
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -96,7 +95,6 @@ fun ChangePasswordScreen(
                     .padding(horizontal = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Icon
                 Box(
                     modifier = Modifier
                         .size(72.dp)
@@ -123,11 +121,9 @@ fun ChangePasswordScreen(
 
                 Spacer(Modifier.height(28.dp))
 
-                // Banners
                 if (errorMsg.isNotBlank())   { ErrorBanner(errorMsg);   Spacer(Modifier.height(12.dp)) }
                 if (successMsg.isNotBlank()) { SuccessBanner(successMsg); Spacer(Modifier.height(12.dp)) }
 
-                // Current Password
                 DentalGoPasswordField(
                     value = currentPassword,
                     onValueChange = { currentPassword = it; errorMsg = ""; successMsg = "" },
@@ -138,7 +134,6 @@ fun ChangePasswordScreen(
                 )
                 Spacer(Modifier.height(16.dp))
 
-                // New Password
                 DentalGoPasswordField(
                     value = newPassword,
                     onValueChange = { newPassword = it; errorMsg = ""; successMsg = "" },
@@ -149,7 +144,6 @@ fun ChangePasswordScreen(
                 )
                 Spacer(Modifier.height(16.dp))
 
-                // Confirm New Password
                 DentalGoPasswordField(
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it; errorMsg = "" },

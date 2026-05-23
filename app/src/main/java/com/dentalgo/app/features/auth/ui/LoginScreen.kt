@@ -60,16 +60,13 @@ fun LoginScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 28.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Spacer(Modifier.height(56.dp))
-
-            // Logo
             DentalGoLogo(fontSize = 24)
 
             Spacer(Modifier.height(48.dp))
 
-            // Header
             Text(
                 text = "Welcome!",
                 fontSize = 28.sp,
@@ -86,13 +83,11 @@ fun LoginScreen(
 
             Spacer(Modifier.height(36.dp))
 
-            // Error Banner
             if (errorMsg.isNotBlank()) {
                 ErrorBanner(message = errorMsg)
                 Spacer(Modifier.height(16.dp))
             }
 
-            // Email
             DentalGoTextField(
                 value = email,
                 onValueChange = { email = it; errorMsg = "" },
@@ -105,7 +100,6 @@ fun LoginScreen(
 
             Spacer(Modifier.height(16.dp))
 
-            // Password
             DentalGoPasswordField(
                 value = password,
                 onValueChange = { password = it; errorMsg = "" },
@@ -116,7 +110,6 @@ fun LoginScreen(
                 enabled = !isLoading
             )
 
-            // Forgot Password
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
@@ -134,7 +127,6 @@ fun LoginScreen(
 
             Spacer(Modifier.height(28.dp))
 
-            // Sign In Button
             DentalGoPrimaryButton(
                 text = "Sign in",
                 onClick = { presenter.login(email, password) },
@@ -144,7 +136,6 @@ fun LoginScreen(
 
             Spacer(Modifier.height(24.dp))
 
-            // Register Link
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
@@ -166,11 +157,8 @@ fun LoginScreen(
                     }
                 )
             }
-
-            Spacer(Modifier.height(32.dp))
         }
 
-        // Full loading overlay
         if (isLoading) LoadingOverlay()
     }
 }

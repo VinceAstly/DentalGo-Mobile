@@ -99,7 +99,6 @@ fun AppointmentSummaryScreen(
             ) {
                 Spacer(Modifier.height(20.dp))
 
-                /* ── Top bar ── */
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -128,7 +127,6 @@ fun AppointmentSummaryScreen(
 
                 Spacer(Modifier.height(20.dp))
 
-                /* ── Banners ── */
                 AnimatedVisibility(visible = errorMsg.isNotBlank(), enter = fadeIn(), exit = fadeOut()) {
                     Column { ErrorBanner(errorMsg); Spacer(Modifier.height(12.dp)) }
                 }
@@ -136,7 +134,6 @@ fun AppointmentSummaryScreen(
                     Column { SuccessBanner(successMsg); Spacer(Modifier.height(12.dp)) }
                 }
 
-                /* ── Summary card ── */
                 Card(
                     modifier  = Modifier.fillMaxWidth(),
                     shape     = RoundedCornerShape(16.dp),
@@ -144,7 +141,6 @@ fun AppointmentSummaryScreen(
                     elevation = CardDefaults.cardElevation(3.dp)
                 ) {
                     Column {
-                        /* Card header gradient bar */
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -171,19 +167,16 @@ fun AppointmentSummaryScreen(
                             HorizontalDivider(color = DentalGoBorder.copy(alpha = 0.5f))
                             Spacer(Modifier.height(16.dp))
 
-                            /* Services */
                             SummarySection(label = "Services") {
                                 SummaryRow(label = service, value = "")
                             }
 
                             Spacer(Modifier.height(14.dp))
 
-                            /* Date */
                             SummarySection(label = "Date & Time") {
                                 SummaryRow(label = date.substringAfter("— ").trim().ifBlank { date }, value = "")
                             }
 
-                            /* Notes */
                             if (notes.isNotBlank()) {
                                 Spacer(Modifier.height(14.dp))
                                 SummarySection(label = "Special Notes") {
@@ -195,7 +188,6 @@ fun AppointmentSummaryScreen(
                             HorizontalDivider(color = DentalGoBorder.copy(alpha = 0.5f))
                             Spacer(Modifier.height(14.dp))
 
-                            /* Status badge */
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -217,7 +209,6 @@ fun AppointmentSummaryScreen(
 
                 Spacer(Modifier.height(28.dp))
 
-                /* ── Confirm button ── */
                 if (!booked) {
                     DentalGoPrimaryButton(
                         text      = "Confirm Appointment",
@@ -251,7 +242,6 @@ fun AppointmentSummaryScreen(
     }
 }
 
-/* ── Helpers ── */
 @Composable
 private fun SummarySection(label: String, content: @Composable ColumnScope.() -> Unit) {
     Column(modifier = Modifier.fillMaxWidth()) {

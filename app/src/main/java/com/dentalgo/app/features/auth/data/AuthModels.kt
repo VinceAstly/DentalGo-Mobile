@@ -10,7 +10,7 @@ data class RegisterRequest(
 )
 
 data class RegisterResponse(
-    val id: String?,   // MongoDB ObjectId
+    val id: String?,
     val fullName: String?,
     val email: String?,
     val phone: String?
@@ -22,7 +22,7 @@ data class LoginRequest(
 )
 
 data class LoginResponse(
-    val id: String?,   // MongoDB ObjectId
+    val id: String?,
     val fullName: String?,
     val email: String?,
     val phone: String?,

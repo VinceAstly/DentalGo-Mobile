@@ -157,14 +157,13 @@ fun DashboardScreen(
                         )
                         Spacer(Modifier.height(12.dp))
 
-                        val displayName = user?.name ?: initialUserName
                         Text(
-                            text = displayName,
+                            text = "Vince Astly N. Cabungcag",
                             color = Color.White,
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 13.sp
                         )
-                        Text("DentalGo Member", color = Color.White.copy(alpha = 0.7f), fontSize = 11.sp)
+                        Text("Web Developer", color = Color.White.copy(alpha = 0.7f), fontSize = 11.sp)
                     }
                 }
             }
@@ -255,8 +254,14 @@ private fun AppointmentsSummarySection(appointments: List<AppointmentData>) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        AppointmentColumn(title = "Pending Appointments", items = appointments.filter { it.status == "pending" })
-        AppointmentColumn(title = "History Appointments", items = appointments.filter { it.status == "completed" })
+        AppointmentColumn(
+            title = "Upcoming",
+            items = appointments.filter { it.status?.lowercase() in listOf("pending", "confirmed") }
+        )
+        AppointmentColumn(
+            title = "History",
+            items = appointments.filter { it.status?.lowercase() in listOf("completed", "cancelled") }
+        )
     }
 }
 

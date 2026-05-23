@@ -3,7 +3,7 @@ package com.dentalgo.app.features.profile.data
 import com.dentalgo.app.core.models.UserData
 
 data class ProfileResponse(
-    val id: String?,   // MongoDB ObjectId
+    val id: String?,
     val fullName: String?,
     val email: String?,
     val phone: String?,

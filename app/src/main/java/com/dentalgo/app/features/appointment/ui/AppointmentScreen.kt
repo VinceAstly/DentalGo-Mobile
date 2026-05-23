@@ -99,7 +99,7 @@ fun AppointmentScreen(
     Scaffold(
         bottomBar = {
             AppointmentBottomBar(
-                onAppointment = { /* already here */ },
+                onAppointment = {},
                 onDashboard   = onNavigateToDashboard,
                 onHistory     = onNavigateToHistory
             )
@@ -120,7 +120,6 @@ fun AppointmentScreen(
             ) {
                 Spacer(Modifier.height(20.dp))
 
-                /* ── Top bar ── */
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -150,7 +149,6 @@ fun AppointmentScreen(
                 }
                 Spacer(Modifier.height(20.dp))
 
-                /* ── Error banner ── */
                 AnimatedVisibility(visible = errorMsg.isNotBlank(), enter = fadeIn(), exit = fadeOut()) {
                     Column {
                         ErrorBanner(errorMsg)
@@ -158,7 +156,6 @@ fun AppointmentScreen(
                     }
                 }
 
-                /* ── Select Services dropdown ── */
                 Text(
                     text = "Select Services",
                     style = MaterialTheme.typography.labelLarge,
@@ -238,7 +235,6 @@ fun AppointmentScreen(
 
                 Spacer(Modifier.height(16.dp))
 
-                /* ── Choose Date dropdown ── */
                 Text(
                     text = "Choose Date",
                     style = MaterialTheme.typography.labelLarge,
@@ -313,7 +309,6 @@ fun AppointmentScreen(
 
                 Spacer(Modifier.height(16.dp))
 
-                /* ── Special Notes ── */
                 DentalGoTextField(
                     value         = notes,
                     onValueChange = { notes = it; errorMsg = "" },
@@ -327,7 +322,6 @@ fun AppointmentScreen(
 
                 Spacer(Modifier.height(28.dp))
 
-                /* ── Confirm button → goes to summary, not API directly ── */
                 DentalGoPrimaryButton(
                     text      = "Review & Confirm",
                     isLoading = isLoading,

@@ -44,7 +44,6 @@ class ProfilePresenter(
                 is ApiResult.NetworkError -> view?.onNetworkError()
             }
             
-            // Fetch appointments if profile load was successful (or even if not, we can try)
             when (val appointmentsResult = repository.getAppointments(token)) {
                 is ApiResult.Success -> {
                     view?.displayAppointments(appointmentsResult.data)
